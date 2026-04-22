@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  check_changes:
+  check-changes:
     name: Check Changes
     runs-on: ubuntu-latest
     outputs:
@@ -29,17 +29,17 @@ jobs:
 
   use_changes:
     name: Use Changes
-    needs: check_changes
+    needs: check-changes
     runs-on: ubuntu-latest
     steps:
       - name: Debug job outputs
         run: |
-          echo "test_file from job output: ${{ needs.check_changes.outputs.test_file }}"
+          echo "test_file from job output: ${{ needs.check-changes.outputs.test_file }}"
 
       - name: Run if changed
-        if: ${{ needs.check_changes.outputs.test_file == 'true' }}
+        if: ${{ needs.check-changes.outputs.test_file == 'true' }}
         run: echo "test-file.txt was changed!"
 
       - name: Run if not changed
-        if: ${{ needs.check_changes.outputs.test_file != 'true' }}
+        if: ${{ needs.check-changes.outputs.test_file != 'true' }}
         run: echo "test-file.txt was NOT changed"
